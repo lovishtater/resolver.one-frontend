@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./views/Home";
 import ErrorPage from "./views/404";
-import Login from "./views/Login";
+import Signin from "./views/Signin";
+import Signup from "./views/Signup";
 import Datasheet from "./views/Datasheet";
 import QueryModal from "./views/QueryModal";
 
@@ -10,8 +11,9 @@ const Router = () => {
     <>
       <BrowserRouter baseUrl="/">
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path="/signin" element={<Signin />} />
           <Route path="/createQuery" exact element={<QueryModal />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<Home />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
