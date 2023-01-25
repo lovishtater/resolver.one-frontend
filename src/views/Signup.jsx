@@ -28,8 +28,7 @@ export default function Signup() {
         if (data.error) {
           setError(data.error);
         } else {
-          localStorage.setItem("resolverUser", data);
-          navigate("/");
+          navigate("/signin");
         }
       })
       .catch((err) => {
