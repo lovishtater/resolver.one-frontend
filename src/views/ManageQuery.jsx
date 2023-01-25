@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { createTicket } from "../helper/ticketApis";
 
 function QueryModal() {
-  const { user } = JSON.parse(localStorage.getItem("user"));
+  const  user  = JSON.parse(localStorage.getItem("user")).user;
   const priorityType = ["Low", "Medium", "High"];
   const statusType = ["Open", "In-progress", "Resolved"];
   const assignedTo = ["Shakti", "Lovish", "Saurabh", "Sarthak"];
@@ -23,6 +23,8 @@ function QueryModal() {
 
 
   let navigate = useNavigate();
+
+  
 
 
   return (
@@ -57,6 +59,17 @@ function QueryModal() {
             </div>
 
             <div>
+              <label class="text-black dark:text-black-200" for="assignTo">
+                Assign To:
+              </label>
+              <select class="block w-full px-4 py-2 mt-2 text-black-700 bg-white border border-gray-300 rounded-md dark:bg-white-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                {assignedTo.map((assign) => (
+                  <option>{assign}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
               <label class="text-black dark:text-black-200" for="priority">
                 Priority
               </label>
@@ -68,12 +81,12 @@ function QueryModal() {
             </div>
 
             <div>
-              <label class="text-black dark:text-black-200" for="assignTo">
-                Assign To:
+              <label class="text-black dark:text-black-200" for="status">
+                Status
               </label>
-              <select class="block w-full px-4 py-2 mt-2 text-black-700 bg-white border border-gray-300 rounded-md dark:bg-white-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
-                {assignedTo.map((assign) => (
-                  <option>{assign}</option>
+              <select class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-white-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                {statusType.map((status) => (
+                  <option>{status}</option>
                 ))}
               </select>
             </div>
@@ -127,7 +140,9 @@ function QueryModal() {
             >
               Close
             </button>
-            <button class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
+            <button 
+            
+            class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
               Submit
             </button>
           </div>
