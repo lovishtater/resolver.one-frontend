@@ -1,13 +1,13 @@
 import Modal from "./Modal";
 import React, { useState } from "react";
-const Datasheet = ({tickets}) => {
+const Datasheet = ({ tickets }) => {
   const col = [
     "Title",
     "Priority",
     "Created By",
     "Status",
     "Assigned To",
-    "createdAt",
+    "Created At",
     "",
   ];
   const [modalOpen, setModalOpen] = useState(false);
@@ -35,44 +35,59 @@ const Datasheet = ({tickets}) => {
                 </tr>
               </thead>
               <tbody class="bg-white">
-                {tickets.slice((page - 1) * 5, page * 5).map((row) => (
-                  <tr>
-                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
-                      <div class="text-sm leading-5 text-blue-900">
-                        {row.title}
-                      </div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
-                      {row.priority}
-                    </td>
-                    <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
-                      {row.createdBy.name}
-                    </td>
-                    <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
-                      <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                        <span
-                          aria-hidden
-                          class="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                        ></span>
-                        <span class="relative text-xs">{row.status}</span>
-                      </span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-blue-900 text-sm leading-5">
-                      {row.assignedTo}
-                    </td>
-                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-blue-900 text-sm leading-5">
-                      {row.createdAt}
-                    </td>
-                    <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-500 text-sm leading-5">
-                      <button
-                        class="px-5 py-2 border-blue-500 border text-white-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none"
-                        onClick={() => setModalOpen(row)}
-                      >
-                        View Details
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                {tickets.slice((page - 1) * 5, page * 5).map((row) => {
+                  let statusColor =
+                    row.status === "Open"
+                      ? "red"
+                      : row.status === "In-progress"
+                      ? "yellow"
+                      : "green";
+
+                  let priorityColor =
+                    row.priority === "High"
+                      ? "red"
+                      : row.priority === "Medium"
+                      ? "yellow"
+                      : "green";
+                  return (
+                    <tr>
+                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
+                        <div class="text-sm leading-5 text-blue-900">
+                          {row.title}
+                        </div>
+                      </td>
+                      <td class={`px-6 py-4 whitespace-no-wrap border-b text-center text-blue-900 border-gray-500 bg-${priorityColor}-200 text-sm leading-5`}>
+                        {row.priority}
+                      </td>
+                      <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
+                        {row.createdBy.name}
+                      </td>
+                      <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
+                        <span class="relative inline-block px-3 py-1 font-semibold text-black leading-tight">
+                          <span
+                            aria-hidden
+                            class={`absolute inset-0 opacity-50 bg-${statusColor}-200 rounded-full`}
+                          ></span>
+                          <span class="relative text-xs">{row.status}</span>
+                        </span>
+                      </td>
+                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-blue-900 text-sm leading-5">
+                        {row.assignedTo}
+                      </td>
+                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-blue-900 text-sm leading-5">
+                        {row.createdAt}
+                      </td>
+                      <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-500 text-sm leading-5">
+                        <button
+                          class="px-5 py-2 border-blue-500 border text-white-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none"
+                          onClick={() => setModalOpen(row)}
+                        >
+                          View Details
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
             <div class="sm:flex-1 sm:flex sm:items-center sm:justify-between mt-4 work-sans">
