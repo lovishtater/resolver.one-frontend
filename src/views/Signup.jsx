@@ -2,14 +2,16 @@
 import {LockClosedIcon} from "@heroicons/react/20/solid";
 import {useState} from "react";
 import {API} from "../backend";
+import { signup } from "../helper/authApis";
 import { useNavigate } from "react-router-dom";
+
 export default function Signup() {
     const teams = ['none', 'tech', 'business', 'ops', 'sales', 'finance'];
     const [values , setValues] = useState({
         name : "",
         email : "",
         password : "",
-        phoneNumber : "",
+        team : ""
     });
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
@@ -20,36 +22,21 @@ export default function Signup() {
         setValues({...values , [name] : event.target.value});
     };
 
-    const onSubmit = event => {
-        event.preventDefault();
-        setError("");
-        setLoading(true);
-        fetch(`${API}/addUser`, {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(values),
-        })
-          .then((res) => {
-            return res.json();
-          })
-          .then((data) => {
-            if (data.error) {
-              setError(data.error);
-              setLoading(false);
-            } else {
-              localStorage.setItem("vooshUser", JSON.stringify(data));
-              alert("User created successfully");
-            }
-          })
-          .catch((err) => {
-            setError(err);
-            setLoading(false);
-          });
-        setLoading(false);
-        navigate("/");
+    const onSubmit = () => {
+      setLoading(true);
+      signup(values).then(data => {
+        if (data.error) {
+          setError(data.error);
+        } else {
+          localStorage.setItem("resolverUser", data);
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        setError(err);
+      }
+      );
+      setLoading(false);
     };
 
   return (
@@ -124,6 +111,7 @@ export default function Signup() {
                         id="team"
                         name="team"
                         onChange={handleChange("team")}
+                        value={values.team}
                         autoComplete="team"
                         placeholder="Team"
                         required

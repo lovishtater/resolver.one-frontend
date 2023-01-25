@@ -1,17 +1,17 @@
 
-import {LockClosedIcon} from "@heroicons/react/20/solid";
-import {API} from "../backend"
+import { LockClosedIcon } from "@heroicons/react/20/solid";
+import { API } from "../backend"
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { signin } from "../helper/authApis";
 
 export default function Signin() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  
   const handleChange = name => event => {
     setError("");
     if (name === "email") {
@@ -19,38 +19,21 @@ export default function Signin() {
     } else {
       setPassword(event.target.value);
     }
-
   };
 
   const onclick = () => {
-    console.log("clicked");
-    setError("");
     setLoading(true);
-    fetch(`${API}/signin`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({email, password}),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        if (data.error) {
-          setError(data.error);
-          setLoading(false);
-        } else {
-          localStorage.setItem("vooshUser", JSON.stringify(data));
-          navigate("/");
-        }
-      })
+    signin({ email, password }).then(data => {
+      if (data.error) {
+        setError(data.error);
+      } else {
+        localStorage.setItem("resolverUser", data);
+        navigate("/");
+      }})
       .catch((err) => {
         setError(err);
-        setLoading(false);
       });
-        setLoading(false);
+    setLoading(false);
   };
 
   return (
