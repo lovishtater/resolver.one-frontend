@@ -22,9 +22,9 @@ const Router = () => {
             <>
               <Route path="/" element={<Home />} />
               <Route path="/createQuery" exact element={<QueryModal />} />
-              <Route path="*" element={<ErrorPage />} />
             </>
           )}
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
     </>
