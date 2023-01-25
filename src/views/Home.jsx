@@ -2,10 +2,16 @@ import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../Assets/logo.png";
 import Datasheet from "../components/Datasheet";
+import { signout } from "../helper/authApis";
 
 const Home = () => {
   // const column = [];
   const navigate = useNavigate();
+  let navigateSignin = useNavigate();
+  const routeChange = () => {
+    let path = `/`;
+    navigateSignin(path);
+  };
 
   return (
     <div>
@@ -40,7 +46,13 @@ const Home = () => {
 
             <div class="hidden md:flex items-center space-x-3 ">
               <a
-                class="py-2 px-2 font-medium text-white bg-green-500 rounded hover:bg-green-400 transition duration-300"
+                class="py-2 px-2 font-medium text-white bg-red-400 rounded hover:bg-red-700 transition duration-300"
+                onClick={() => signout()}
+              >
+                Log out
+              </a>
+              <a
+                class="py-2 px-2 font-medium text-white bg-green-500 rounded hover:bg-green-800 transition duration-300"
                 onClick={() => navigate("createQuery")}
               >
                 Raise a Query
