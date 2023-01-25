@@ -1,20 +1,17 @@
 import Modal from "../views/Modal";
 import React, { useState } from "react";
 import { mockTickets } from "../mockData/mockData";
-const Datasheet = () => {
-  const [data, setData] = useState(mockTickets);
+const Datasheet = ({tickets}) => {
   const col = [
-    "ID",
     "Title",
     "Priority",
     "Created By",
     "Status",
     "Assigned To",
-    "Time",
+    "createdAt",
     "",
   ];
   const [modalOpen, setModalOpen] = useState(false);
-
   return (
     <div>
       <div className="sheet-container">
@@ -38,15 +35,8 @@ const Datasheet = () => {
                 </tr>
               </thead>
               <tbody class="bg-white">
-                {data.map((row) => (
+                {tickets.map((row) => (
                   <tr>
-                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
-                      <div class="flex items-center">
-                        <div>
-                          <div class="text-sm leading-5 text-gray-800">#1</div>
-                        </div>
-                      </div>
-                    </td>
                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
                       <div class="text-sm leading-5 text-blue-900">
                         {row.title}
@@ -56,7 +46,7 @@ const Datasheet = () => {
                       {row.priority}
                     </td>
                     <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
-                      {row.createdBy}
+                      {row.createdBy.name}
                     </td>
                     <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
                       <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
@@ -71,7 +61,7 @@ const Datasheet = () => {
                       {row.assignedTo}
                     </td>
                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-blue-900 text-sm leading-5">
-                      {row.time}
+                      {row.createdAt}
                     </td>
                     <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-500 text-sm leading-5">
                       <button

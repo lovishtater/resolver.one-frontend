@@ -27,7 +27,7 @@ export default function Signin() {
       if (data.error) {
         setError(data.error);
       } else {
-        localStorage.setItem("resolverUser", data);
+        localStorage.setItem("resolverUser", JSON.stringify(data));
         navigate("/");
       }})
       .catch((err) => {

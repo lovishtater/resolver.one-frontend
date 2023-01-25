@@ -1,17 +1,29 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../Assets/logo.png";
 import Datasheet from "../components/Datasheet";
 import { signout } from "../helper/authApis";
+import {getAllTicket} from "../helper/ticketApis";
 
 const Home = () => {
   // const column = [];
   const navigate = useNavigate();
-  let navigateSignin = useNavigate();
-  const routeChange = () => {
-    let path = `/`;
-    navigateSignin(path);
+  const [tickets, setTickets] = useState([]);
+  const [error, setError] = useState("");
+
+  const getAllTickets = () => {
+    getAllTicket().then((data) => {
+      if (data.error) {
+        setError(data.error);
+      } else {
+        setTickets(data.tickets);
+      }
+    });
   };
+
+  useEffect(() => {
+    getAllTickets();
+  }, []);
 
   return (
     <div>
@@ -78,7 +90,7 @@ const Home = () => {
           </div>
         </div>
       </nav>
-      <Datasheet />
+      <Datasheet tickets={tickets} />
     </div>
   );
 };

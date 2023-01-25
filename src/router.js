@@ -7,7 +7,7 @@ import Datasheet from "./components/Datasheet";
 import QueryModal from "./views/QueryModal";
 
 const Router = () => {
-  const isAuthenticated = localStorage.getItem("resolverToken");
+  const isAuthenticated = localStorage.getItem("resolverUser");
 
   return (
     <>
@@ -22,9 +22,9 @@ const Router = () => {
             <>
               <Route path="/" element={<Home />} />
               <Route path="/createQuery" exact element={<QueryModal />} />
+              <Route path="*" element={<ErrorPage />} />
             </>
           )}
-          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
     </>
