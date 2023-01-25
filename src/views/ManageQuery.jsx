@@ -1,5 +1,4 @@
 import React from "react";
-import "./Modal.css";
 import { useNavigate } from "react-router-dom";
 
 function QueryModal() {
@@ -11,7 +10,7 @@ function QueryModal() {
 
   return (
     <div>
-      <section class="max-w-4xl p-6 mx-auto bg-red-400 rounded-md shadow-md dark:bg-white-800 mt-20">
+      <section class="max-w-4xl p-6 mx-auto rounded-md shadow-md dark:bg-white-800 mt-20 border-2 border-gray-300 border-dashed rounded-md">
         <h1 class="text-xl font-bold text-white capitalize dark:text-white">
           Register Query
         </h1>

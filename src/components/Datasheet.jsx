@@ -1,4 +1,4 @@
-import Modal from "../views/Modal";
+import Modal from "./Modal";
 import React, { useState } from "react";
 const Datasheet = ({tickets}) => {
   const col = [

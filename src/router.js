@@ -4,7 +4,7 @@ import ErrorPage from "./views/NotFound";
 import Signin from "./views/Signin";
 import Signup from "./views/Signup";
 import Datasheet from "./components/Datasheet";
-import QueryModal from "./views/QueryModal";
+import ManageQuery from "./views/ManageQuery";
 
 const Router = () => {
   const isAuthenticated = localStorage.getItem("resolverUser");
@@ -21,7 +21,7 @@ const Router = () => {
           ) : (
             <>
               <Route path="/" element={<Home />} />
-              <Route path="/createQuery" exact element={<QueryModal />} />
+              <Route path="/createQuery" exact element={<ManageQuery />} />
               <Route path="*" element={<ErrorPage />} />
             </>
           )}
