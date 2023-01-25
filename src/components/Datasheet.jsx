@@ -1,6 +1,5 @@
 import Modal from "../views/Modal";
 import React, { useState } from "react";
-import { mockTickets } from "../mockData/mockData";
 const Datasheet = ({tickets}) => {
   const col = [
     "Title",
