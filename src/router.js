@@ -13,7 +13,7 @@ const Router = () => {
     <>
       <BrowserRouter baseUrl="/">
         <Routes>
-          {!isAuthenticated ? (
+          {isAuthenticated ? (
             <>
               <Route path="/*" element={<Signin />} />
               <Route path="/signin" element={<Signin />} />
