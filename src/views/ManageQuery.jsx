@@ -10,8 +10,8 @@ function QueryModal() {
 
   return (
     <div>
-      <section class="max-w-4xl p-6 mx-auto rounded-md shadow-md dark:bg-white-800 mt-20 border-2 border-gray-300 border-dashed rounded-md">
-        <h1 class="text-xl font-bold text-white capitalize dark:text-white">
+      <section class="max-w-4xl p-6 mx-auto shadow-md dark:bg-white-800 mt-20 border-2 border-blue-500 border-dashed rounded-md">
+        <h1 class="text-xl font-bold text-white capitalize dark:text-pink-500">
           Register Query
         </h1>
         <form>
@@ -59,7 +59,7 @@ function QueryModal() {
               <div class="mt-1 flex justify-center px-3 pt-2 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                 <div class="space-y-1 text-center">
                   <svg
-                    class="mx-auto h-12 w-12 text-white"
+                    class="mx-auto h-12 w-12 text-grey-300"
                     stroke="currentColor"
                     fill="none"
                     viewBox="0 0 48 48"
