@@ -1,5 +1,7 @@
 import Modal from "./Modal";
 import React, { useState } from "react";
+import moment from "moment";
+
 const Datasheet = ({ tickets }) => {
   const col = [
     "Title",
@@ -36,6 +38,10 @@ const Datasheet = ({ tickets }) => {
               </thead>
               <tbody class="bg-white">
                 {tickets.slice((page - 1) * 5, page * 5).map((row) => {
+                  let timeVar = moment(row.createdAt).format(
+                    "DD-MM-YYYY, h:mm a"
+                  );
+
                   let statusColor =
                     row.status === "Open"
                       ? "red"
@@ -56,7 +62,9 @@ const Datasheet = ({ tickets }) => {
                           {row.title}
                         </div>
                       </td>
-                      <td class={`px-6 py-4 whitespace-no-wrap border-b text-center text-blue-900 border-gray-500 bg-${priorityColor}-200 text-sm leading-5`}>
+                      <td
+                        class={`px-6 py-4 whitespace-no-wrap border-b text-center text-blue-900 border-gray-500 bg-${priorityColor}-200 text-sm leading-5`}
+                      >
                         {row.priority}
                       </td>
                       <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
@@ -75,7 +83,7 @@ const Datasheet = ({ tickets }) => {
                         {row.assignedTo}
                       </td>
                       <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-blue-900 text-sm leading-5">
-                        {row.createdAt}
+                        {timeVar}
                       </td>
                       <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-500 text-sm leading-5">
                         <button
@@ -94,12 +102,11 @@ const Datasheet = ({ tickets }) => {
               <div>
                 <p class="text-sm leading-5 text-blue-700">
                   Showing
-                  <span class="font-medium"> {
-                    page * 5 - 9
-                  } </span>-
-                  <span class="font-medium"> {
-                    page * 5 > tickets.length ? tickets.length : page * 10
-                  }</span>
+                  <span class="font-medium"> {page * 5 - 9} </span>-
+                  <span class="font-medium">
+                    {" "}
+                    {page * 5 > tickets.length ? tickets.length : page * 10}
+                  </span>
                   of
                   <span class="font-medium"> {tickets.length} </span>
                   results
@@ -126,9 +133,7 @@ const Datasheet = ({ tickets }) => {
                       </svg>
                     </a>
                   </div>
-                  <div>
-
-                  </div>
+                  <div></div>
                   <div v-if="pagination.current_page < pagination.last_page">
                     <a
                       onClick={() => setPage(page + 1)}
