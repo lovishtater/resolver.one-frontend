@@ -1,6 +1,5 @@
-
 import { LockClosedIcon } from "@heroicons/react/20/solid";
-import { API } from "../backend"
+import { API } from "../backend";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signin } from "../helper/authApis";
@@ -12,7 +11,13 @@ export default function Signin() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleChange = name => event => {
+  let navigateSignup = useNavigate();
+  const routeChange = () => {
+    let path = `/signup`;
+    navigateSignup(path);
+  };
+
+  const handleChange = (name) => (event) => {
     setError("");
     if (name === "email") {
       setEmail(event.target.value);
@@ -85,7 +90,9 @@ export default function Signin() {
               </div>
             </div>
 
-            {error && <div className="error-box text-red-500 text-center">{error}</div>}
+            {error && (
+              <div className="error-box text-red-500 text-center">{error}</div>
+            )}
 
             <div>
               <button
@@ -101,6 +108,19 @@ export default function Signin() {
                 Sign in
               </button>
             </div>
+          </div>
+          <div>
+            <p class="text-sm font-semibold mt-2 pt-1 mb-0">
+              Don't have an account?
+              <a
+                href="/signup"
+                class="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out"
+                onclick={routeChange}
+              >
+                {" "}
+                Register
+              </a>
+            </p>
           </div>
         </div>
       </div>

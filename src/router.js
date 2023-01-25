@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./views/Home";
-import ErrorPage from "./views/404";
+import ErrorPage from "./views/NotFound";
 import Signin from "./views/Signin";
 import Signup from "./views/Signup";
 import Datasheet from "./components/Datasheet";

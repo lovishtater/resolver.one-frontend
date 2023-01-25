@@ -1,30 +1,36 @@
-
-import {LockClosedIcon} from "@heroicons/react/20/solid";
-import {useState} from "react";
-import {API} from "../backend";
+import { LockClosedIcon } from "@heroicons/react/20/solid";
+import { useState } from "react";
+import { API } from "../backend";
 import { signup } from "../helper/authApis";
 import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
-    const teams = ['none', 'tech', 'business', 'ops', 'sales', 'finance'];
-    const [values , setValues] = useState({
-        name : "",
-        email : "",
-        password : "",
-        team : ""
-    });
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
+  const teams = ["none", "tech", "business", "ops", "sales", "finance"];
+  const [values, setValues] = useState({
+    name: "",
+    email: "",
+    password: "",
+    team: "",
+  });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-    const handleChange = name => event => {
-        setError("");
-        setValues({...values , [name] : event.target.value});
-    };
+  let navigateSignup = useNavigate();
+  const routeChange = () => {
+    let path = `/signin`;
+    navigateSignup(path);
+  };
 
-    const onSubmit = () => {
-      setLoading(true);
-      signup(values).then(data => {
+  const handleChange = (name) => (event) => {
+    setError("");
+    setValues({ ...values, [name]: event.target.value });
+  };
+
+  const onSubmit = () => {
+    setLoading(true);
+    signup(values)
+      .then((data) => {
         if (data.error) {
           setError(data.error);
         } else {
@@ -33,29 +39,28 @@ export default function Signup() {
       })
       .catch((err) => {
         setError(err);
-      }
-      );
-      setLoading(false);
-    };
+      });
+    setLoading(false);
+  };
 
   return (
     <>
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
-          <img
+            <img
               className="mx-auto h-40 w-auto"
               src="https://i.ibb.co/4VGhDzW/logo.png"
               alt="Resolver.One LOGO"
             />
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-              Sign up to your account
+              Create an account
             </h2>
           </div>
           <div className="mt-8 space-y-6">
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="-space-y-px rounded-md shadow-sm">
-            <div>
+              <div>
                 <label htmlFor="name" className="sr-only">
                   Name
                 </label>
@@ -102,38 +107,46 @@ export default function Signup() {
                 />
               </div>
 
-                <div>
-                    <label htmlFor="team" className="sr-only">
-                        Team
-                    </label>
-                    <select 
-                        id="team"
-                        name="team"
-                        onChange={handleChange("team")}
-                        value={values.team}
-                        autoComplete="team"
-                        placeholder="Team"
-                        required
-                        className="relative block w-full rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                    >
-                        {teams.map((team) => (
-                            <option key={team} value={team}>{team}</option>
-                        ))}
-                    </select>
-                </div>
+              <div>
+                <label htmlFor="team" className="sr-only">
+                  Team
+                </label>
+                <select
+                  id="team"
+                  name="team"
+                  onChange={handleChange("team")}
+                  value={values.team}
+                  autoComplete="team"
+                  placeholder="Team"
+                  required
+                  className="relative block w-full rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                >
+                  {teams.map((team) => (
+                    <option key={team} value={team}>
+                      {team}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
 
             {error && (
-                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                    <strong className="font-bold">Error!</strong>
-                </div>
+              <div
+                className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                role="alert"
+              >
+                <strong className="font-bold">Error!</strong>
+              </div>
             )}
 
             {loading && (
-                <div className="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative" role="alert">
-                            <strong className="font-bold">Loading!</strong>
-                            <span className="block sm:inline">Please wait...</span>
-                                </div>
+              <div
+                className="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative"
+                role="alert"
+              >
+                <strong className="font-bold">Loading!</strong>
+                <span className="block sm:inline">Please wait...</span>
+              </div>
             )}
 
             <div>
@@ -149,6 +162,19 @@ export default function Signup() {
                 </span>
                 Sign in
               </button>
+            </div>
+
+            <div class="text-sm font-semibold mt-2 pt-1 mb-0">
+              Already have an account?
+              <a
+                href="/signin"
+                class="font-semibold text-blue-600 hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out"
+                onclick={routeChange}
+              >
+                {" "}
+                Log in
+              </a>
+              .
             </div>
           </div>
         </div>
