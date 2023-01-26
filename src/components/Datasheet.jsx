@@ -102,10 +102,10 @@ const Datasheet = ({ tickets }) => {
               <div>
                 <p class="text-sm leading-5 text-blue-700">
                   Showing
-                  <span class="font-medium"> {page * 5 - 9} </span>-
+                  <span class="font-medium"> {page * 5 - 4} </span>-
                   <span class="font-medium">
                     {" "}
-                    {page * 5 > tickets.length ? tickets.length : page * 10}
+                    {page * 5 > tickets.length ? tickets.length : page * 5}
                   </span>
                   of
                   <span class="font-medium"> {tickets.length} </span>
@@ -116,7 +116,7 @@ const Datasheet = ({ tickets }) => {
                 <nav class="relative z-0 inline-flex shadow-sm">
                   <div>
                     <a
-                      onClick={() => setPage(page - 1)}
+                      onClick={() => page>1 && setPage(page - 1)}
                       disabled={page === 1}
                       class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150 aria-label='Previous' v-on:click.prevent='changePage(pagination.current_page - 1)'"
                     >
@@ -136,7 +136,7 @@ const Datasheet = ({ tickets }) => {
                   <div></div>
                   <div v-if="pagination.current_page < pagination.last_page">
                     <a
-                      onClick={() => setPage(page + 1)}
+                      onClick={() => page< tickets.length/5 && setPage(page + 1)}
                       disabled={page === tickets.length / 5}
                       class="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150"
                       aria-label="Next"
