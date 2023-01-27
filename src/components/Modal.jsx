@@ -9,12 +9,16 @@ const setPriorityColor = {
   Low: "text-green-700",
 };
 
-function Modal({ ticket, setOpenModal }) {
+function Modal({ ticket, setOpenModal, setAllTickets }) {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("resolverUser")).user;
   const [comment, setComment] = useState("");
-
+  const [data, setData] = useState(ticket);
+  
   const onAddComment = () => {
+    if (comment === "") {
+      return;
+    }
     const newComment = {
       comment: comment,
       _id: data._id,
@@ -26,6 +30,11 @@ function Modal({ ticket, setOpenModal }) {
         console.log(data.error);
       } else {
         setData(data.ticket);
+        setAllTickets(prev => {
+          const index = prev.findIndex(ticket => ticket._id === data.ticket._id);
+          prev[index] = data.ticket;
+          return [...prev];
+        });
         setComment("");
       }
     });
