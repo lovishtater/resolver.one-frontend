@@ -5,7 +5,7 @@ import { signup } from "../helper/authApis";
 import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
-  const teams = ["none", "tech", "business", "ops", "sales", "finance"];
+  const teams = ["None", "Tech", "Business", "Operations", "Sales", "Finance"];
   const [values, setValues] = useState({
     name: "",
     email: "",
