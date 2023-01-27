@@ -9,6 +9,9 @@ const Home = () => {
   const navigate = useNavigate();
   const [type, setType] = useState("all"); // all, my
 
+  const specialEffects = "text-green-500 border-b-4 border-green-500";
+  const noEffects = "";
+
   return (
     <div>
       <nav class="bg-white shadow-lg">
@@ -24,16 +27,20 @@ const Home = () => {
                 </a>
               </div>
 
-              <div class="hidden md:flex items-center space-x-1">
+              <div class="hidden md:flex items-center space-x-1 cursor-pointer">
                 <a
                   onClick={() => setType("all")}
-                  class="py-4 px-2 text-green-500 border-b-4 border-green-500 font-semibold "
+                  class={`py-4 px-2  font-semibold ${
+                    type == "all" ? specialEffects : noEffects
+                  }`}
                 >
                   All Tasks
                 </a>
                 <a
                   onClick={() => setType("my")}
-                  class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300"
+                  class={`py-4 px-2 font-semibold ${
+                    type == "my" ? specialEffects : noEffects
+                  }`}
                 >
                   My Tasks
                 </a>
@@ -43,7 +50,10 @@ const Home = () => {
             <div class="hidden md:flex items-center space-x-3 ">
               <a
                 class="py-2 px-2 font-medium text-white bg-red-400 rounded hover:bg-red-700 transition duration-300 hover:cursor-pointer"
-                onClick={() => {signout(); navigate("/signin")}}
+                onClick={() => {
+                  signout();
+                  navigate("/signin");
+                }}
               >
                 Log out
               </a>
