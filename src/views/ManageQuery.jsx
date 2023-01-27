@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { createTicket } from "../helper/ticketApis";
 
 function QueryModal() {
-  const  user  = JSON.parse(localStorage.getItem("user")).user;
-  const priorityType = ["Low", "Medium", "High"];
+  const user = JSON.parse(localStorage.getItem("user")).user;
+  const priorityType = ["Low", "Intermediate", "High"];
   const statusType = ["Open", "In-progress", "Resolved"];
   const assignedTo = ["Shakti", "Lovish", "Saurabh", "Sarthak"];
   const [queryData, setQueryData] = useState({
@@ -18,14 +18,10 @@ function QueryModal() {
       email: user.email,
       team: user.team,
     },
-    comments: []
+    comments: [],
   });
 
-
   let navigate = useNavigate();
-
-  
-
 
   return (
     <div>
@@ -33,65 +29,65 @@ function QueryModal() {
         <h1 class="text-xl font-bold text-white capitalize dark:text-pink-500">
           Register Query
         </h1>
-          <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2 ">
-            <div>
-              <label class="text-black dark:text-black-200" for="username">
-                Title
-              </label>
-              <input
-                type="text"
-                id="title"
-                className="text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white  dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-50 border-2 border-gray-300 border-dashed rounded-md"
-                placeholder="Enter Query Title"
-                required
-              />
-            </div>
+        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2 ">
+          <div>
+            <label class="text-black dark:text-black-200" for="username">
+              Title
+            </label>
+            <input
+              type="text"
+              id="title"
+              className="text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white  dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-50 border-2 border-gray-300 border-dashed rounded-md"
+              placeholder="Enter Query Title"
+              required
+            />
+          </div>
 
-            <div>
-              <label class="text-black dark:text-black-200 " for="description">
-                Description
-              </label>
-              <textarea
-                id="textarea"
-                type="textarea"
-                class="block w-full px-28 py-9 mt-2 text-gray-700 bg-white border dark:bg-white dark:text-black focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring border-gray-300 border-dashed rounded-md"
-              ></textarea>
-            </div>
+          <div>
+            <label class="text-black dark:text-black-200 " for="description">
+              Description
+            </label>
+            <textarea
+              id="textarea"
+              type="textarea"
+              class="block w-full px-28 py-9 mt-2 text-gray-700 bg-white border dark:bg-white dark:text-black focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring border-gray-300 border-dashed rounded-md"
+            ></textarea>
+          </div>
 
-            <div>
-              <label class="text-black dark:text-black-200" for="assignTo">
-                Assign To:
-              </label>
-              <select class="block w-full px-4 py-2 mt-2 text-black-700 bg-white border border-gray-300 rounded-md dark:bg-white-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
-                {assignedTo.map((assign) => (
-                  <option>{assign}</option>
-                ))}
-              </select>
-            </div>
+          <div>
+            <label class="text-black dark:text-black-200" for="assignTo">
+              Assign To:
+            </label>
+            <select class="block w-full px-4 py-2 mt-2 text-black-700 bg-white border border-gray-300 rounded-md dark:bg-white-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+              {assignedTo.map((assign) => (
+                <option>{assign}</option>
+              ))}
+            </select>
+          </div>
 
-            <div>
-              <label class="text-black dark:text-black-200" for="priority">
-                Priority
-              </label>
-              <select class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-white-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
-                {priorityType.map((priority) => (
-                  <option>{priority}</option>
-                ))}
-              </select>
-            </div>
+          <div>
+            <label class="text-black dark:text-black-200" for="priority">
+              Priority
+            </label>
+            <select class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-white-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+              {priorityType.map((priority) => (
+                <option>{priority}</option>
+              ))}
+            </select>
+          </div>
 
-            <div>
-              <label class="text-black dark:text-black-200" for="status">
-                Status
-              </label>
-              <select class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-white-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
-                {statusType.map((status) => (
-                  <option>{status}</option>
-                ))}
-              </select>
-            </div>
+          <div>
+            <label class="text-black dark:text-black-200" for="status">
+              Status
+            </label>
+            <select class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-white-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+              {statusType.map((status) => (
+                <option>{status}</option>
+              ))}
+            </select>
+          </div>
 
-            {/* <div>
+          {/* <div>
               <label class="block text-sm font-medium text-black">
                 Attachments
               </label>
@@ -129,23 +125,19 @@ function QueryModal() {
                 </div>
               </div>
             </div> */}
-          </div>
+        </div>
 
-
-
-          <div class="flex justify-end mt-6">
-            <button
-              class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600 mr-4"
-              onClick={() => navigate("/")}
-            >
-              Close
-            </button>
-            <button 
-            
-            class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
-              Submit
-            </button>
-          </div>
+        <div class="flex justify-end mt-6">
+          <button
+            class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600 mr-4"
+            onClick={() => navigate("/")}
+          >
+            Close
+          </button>
+          <button class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
+            Submit
+          </button>
+        </div>
       </section>
     </div>
   );
