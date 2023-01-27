@@ -81,7 +81,7 @@ function Modal({ ticket, setOpenModal, setAllTickets }) {
             {data.description}
           </p>
           <p className="text-base font-bold">Comments : </p>
-          <p className="text-base h-20 overflow-y-auto mt-0">
+          <p className="text-base max-h-40 overflow-y-scroll mt-0">
             {data.comments.map((comment) => (
               <div>
                 {/* <p>{comment}</p> */}
