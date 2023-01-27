@@ -4,10 +4,10 @@ import moment from "moment";
 import { getAllTicket } from "../helper/ticketApis";
 
 const getPriorityColor = {
-  High: "bg-red-200",
-  Medium: "bg-yellow-200",
-  Low: "bg-green-200",
-};
+High:"bg-red-200",
+Intermediate:"bg-yellow-200",
+Low:"bg-green-200"
+}
 
 const getStatusColor = {
   Open: "bg-red-200",
