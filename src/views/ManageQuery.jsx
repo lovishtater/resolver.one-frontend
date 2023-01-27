@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createTicket } from "../helper/ticketApis";
+import { createTicket, updateTicket } from "../helper/ticketApis";
 
-function QueryModal() {
+function QueryModal({ action }) {
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("resolverUser")).user;
-  console.log(user);
-  const priorityType = ["Low", "Medium", "High"];
+  const priorityType = ["Low", "Intermediate", "High"];
   const statusType = ["Open", "In-progress", "Resolved"];
   const assignedTo = ["Shakti", "Lovish", "Saurabh", "Sarthak"];
+  const [error, setError] = useState("");
   const [queryData, setQueryData] = useState({
     title: "",
     description: "",
@@ -18,11 +19,38 @@ function QueryModal() {
     comments: [],
   });
 
+  const onQuerySubmit = () => {
+    setError("");
+    if (queryData.title === "" || queryData.description === "" || queryData.priority === "" || queryData.status === "" || queryData.assignedTo === "") {
+      setError("Please fill all the fields");
+      return;
+    }
+    if (action === "create") {
+      createTicket(queryData).then((data) => {
+        if (data.error) {
+          setError(data.error);
+        } else {
+          setError("");
+          navigate("/")
+        }
+      });
+    } else {
+      updateTicket(queryData).then((data) => {
+        if (data.error) {
+          setError(data.error);
+        } else {
+          setError("");
+          navigate("/")
+        }
+      });
+    }
+  };
+
   const onInputChange = (e) => {
     setQueryData({ ...queryData, [e.target.name]: e.target.value });
   };
 
-  let navigate = useNavigate();
+
 
   return (
     <div>
@@ -64,11 +92,11 @@ function QueryModal() {
             <label class="text-black dark:text-black-200" for="priority">
               Priority
             </label>
-            <select 
-            id="priority"
-            name="priority"
-            onChange={(e) => onInputChange(e)}
-            class="block w-full px-4 py-2 mt-2 text-black-700 bg-white border border-gray-300 rounded-md dark:bg-white-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+            <select
+              id="priority"
+              name="priority"
+              onChange={(e) => onInputChange(e)}
+              class="block w-full px-4 py-2 mt-2 text-black-700 bg-white border border-gray-300 rounded-md dark:bg-white-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
               {priorityType.map((priority) => (
                 <option>{priority}</option>
               ))}
@@ -79,11 +107,11 @@ function QueryModal() {
             <label class="text-black dark:text-black-200" for="status">
               Status
             </label>
-            <select 
-            id="status"
-            name="status"
-            onChange={(e) => onInputChange(e)}
-            class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-white-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+            <select
+              id="status"
+              name="status"
+              onChange={(e) => onInputChange(e)}
+              class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-white-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
               {statusType.map((status) => (
                 <option>{status}</option>
               ))}
@@ -94,57 +122,28 @@ function QueryModal() {
             <label class="text-black dark:text-black-200" for="assignTo">
               Assign To:
             </label>
-            <select 
-            id="assignTo"
-            name="assignedTo"
-            onChange={(e) => onInputChange(e)}
-            class="block w-full px-4 py-2 mt-2 text-black-700 bg-white border border-gray-300 rounded-md dark:bg-white-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+            <select
+              id="assignTo"
+              name="assignedTo"
+              onChange={(e) => onInputChange(e)}
+              class="block w-full px-4 py-2 mt-2 text-black-700 bg-white border border-gray-300 rounded-md dark:bg-white-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
               {assignedTo.map((assign) => (
                 <option>{assign}</option>
               ))}
             </select>
           </div>
-
-          
-          {/* <div>
-              <label class="block text-sm font-medium text-black">
-                Attachments
-              </label>
-              <div class="mt-1 flex justify-center px-3 pt-2 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                <div class="space-y-1 text-center">
-                  <svg
-                    class="mx-auto h-12 w-12 text-grey-300"
-                    stroke="currentColor"
-                    fill="none"
-                    viewBox="0 0 48 48"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <div class="flex text-sm text-gray-600">
-                    <label
-                      for="file-upload"
-                      class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
-                    >
-                      <span class="">Upload a file</span>
-                      <input
-                        id="file-upload"
-                        name="file-upload"
-                        type="file"
-                        class="sr-only"
-                      />
-                    </label>
-                  </div>
-                  <p class="text-xs text-gray-700">PNG, JPG, GIF up to 10MB</p>
-                </div>
-              </div>
-            </div> */}
         </div>
+
+        {error && (
+          <div class="mt-4 bg-red-100 rounded-lg py-5 px-6 mb-3 text-base text-red-700 inline-flex items-center w-full" role="alert">
+            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times-circle" class="w-4 h-4 mr-2 fill-current" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"></path>
+            </svg>
+            <span>{error}</span>
+          </div>
+        )}
+
+
 
         <div class="flex justify-end mt-6">
           <button
@@ -153,7 +152,9 @@ function QueryModal() {
           >
             Close
           </button>
-          <button class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
+          <button
+            onClick={(e) => onQuerySubmit(e)}
+            class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
             Submit
           </button>
         </div>

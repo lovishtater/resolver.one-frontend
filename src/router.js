@@ -22,7 +22,8 @@ const Router = () => {
           ) : (
             <>
               <Route path="/" element={<Home />} />
-              <Route path="/createQuery" exact element={<ManageQuery />} />
+              <Route path="/createQuery" exact element={<ManageQuery action="create" />} />
+              <Route path="/updateQuery/:id" exact element={<ManageQuery action="edit" />} />
               <Route path="*" element={<ErrorPage />} />
             </>
           )}
