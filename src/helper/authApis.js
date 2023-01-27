@@ -36,3 +36,14 @@ export const signout = () => {
     }
 }
 
+export const getAllUsers = () => {
+    return fetch(`${API}/get-all-users`, {
+        method: "GET"
+    })
+    .then(response => {
+        return response.json();
+    })
+    .catch(err => console.log(err));
+}
+
+
