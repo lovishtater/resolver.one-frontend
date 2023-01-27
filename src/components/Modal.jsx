@@ -3,37 +3,32 @@ import "./Modal.css";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { addComment } from "../helper/ticketApis";
+const setPriorityColor = {
+  High: "text-red-700",
+  Intermediate: "text-yellow-700",
+  Low: "text-green-700",
+};
 
-function Modal({ mockTicket, setOpenModal }) {
+function Modal({ ticket, setOpenModal }) {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("resolverUser")).user;
-  const [data, setData] = useState(mockTicket);
   const [comment, setComment] = useState("");
-  const setPriorityColor = {
-    High: "text-red-700",
-    Intermediate: "text-yellow-700",
-    Low: "text-green-700",
-  };
-
-  function refreshPage() {
-    window.location.reload(false);
-  }
 
   const onAddComment = () => {
     const newComment = {
       comment: comment,
       _id: data._id,
       name: user.name,
+      createdAt: Date.now()
     };
     addComment(newComment).then((data) => {
       if (data.error) {
         console.log(data.error);
       } else {
-        // setData(data);
+        setData(data.ticket);
         setComment("");
       }
     });
-    refreshPage();
   };
 
   return (
