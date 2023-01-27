@@ -1,17 +1,31 @@
 import { React, useState } from "react";
 import "./Modal.css";
+import moment from "moment";
 
 function Modal({ mockTicket, setOpenModal }) {
   const [data, setData] = useState(mockTicket);
 
   return (
     <div className="modalBackground">
-      <div className="modalContainer">
-        <div className="title">
-          <h1>{data.title}</h1>
+      <div className="modalContainer h-none">
+        <div className="title mb-3">
+          <h1 className="text-xl font-bold text-blue-700">{data.title}</h1>
         </div>
-        <div className="body">
-          <p>{data.description}</p>
+        <div className="body text-left">
+          <p className="text-base font-bold">
+            Date :{" "}
+            <span className="font-normal">
+              {moment(data.createdAt).format("DD-MM-YYYY, h:mm a")}
+            </span>
+          </p>
+          <p className="text-base font-bold">
+            Priority : <span className="font-normal">{data.priority}</span>
+          </p>
+          <p className="text-base font-bold">
+            Created By :{" "}
+            <span className="font-normal">{data.createdBy.name}</span>
+          </p>
+          <p className="text-base">{data.description}</p>
           <div class="flex justify-center">
             <div class="mb-3 xl:w-96">
               <textarea
@@ -19,6 +33,7 @@ function Modal({ mockTicket, setOpenModal }) {
         form-control
         block
         w-full
+        mt-3
         px-5
         py-5
         text-base
@@ -48,7 +63,8 @@ function Modal({ mockTicket, setOpenModal }) {
           >
             Close
           </button>
-          <button>Resolve</button>
+          <button>Comment</button>
+          <button id="resolveBtn">Resolve</button>
         </div>
       </div>
     </div>
