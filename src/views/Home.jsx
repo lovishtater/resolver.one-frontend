@@ -49,6 +49,12 @@ const Home = () => {
 
             <div class="hidden md:flex items-center space-x-3 ">
               <a
+                class="py-2 px-2 font-medium text-white bg-green-500 rounded hover:bg-green-800 transition duration-300 hover:cursor-pointer"
+                onClick={() => navigate("createQuery")}
+              >
+                Raise a Query
+              </a>
+              <a
                 class="py-2 px-2 font-medium text-white bg-red-400 rounded hover:bg-red-700 transition duration-300 hover:cursor-pointer"
                 onClick={() => {
                   signout();
@@ -56,12 +62,6 @@ const Home = () => {
                 }}
               >
                 Log out
-              </a>
-              <a
-                class="py-2 px-2 font-medium text-white bg-green-500 rounded hover:bg-green-800 transition duration-300 hover:cursor-pointer"
-                onClick={() => navigate("createQuery")}
-              >
-                Raise a Query
               </a>
             </div>
 
