@@ -3,27 +3,10 @@ import { useNavigate } from "react-router-dom";
 import Logo from "../Assets/logo.png";
 import Datasheet from "../components/Datasheet";
 import { signout } from "../helper/authApis";
-import {getAllTicket} from "../helper/ticketApis";
 
 const Home = () => {
   // const column = [];
   const navigate = useNavigate();
-  const [tickets, setTickets] = useState([]);
-  const [error, setError] = useState("");
-
-  const getAllTickets = () => {
-    getAllTicket().then((data) => {
-      if (data.error) {
-        setError(data.error);
-      } else {
-        setTickets(data.tickets);
-      }
-    });
-  };
-
-  useEffect(() => {
-    getAllTickets();
-  }, []);
 
   return (
     <div>
@@ -90,7 +73,7 @@ const Home = () => {
           </div>
         </div>
       </nav>
-      <Datasheet tickets={tickets} />
+      <Datasheet />
     </div>
   );
 };
