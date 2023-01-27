@@ -1,23 +1,26 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { createTicket, updateTicket } from "../helper/ticketApis";
 
 function QueryModal({ action }) {
+  const updateQueryData = useLocation().state;
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("resolverUser")).user;
+  const createQueryData = {
+    title: "",
+    description: "",
+    status: "Open",
+    priority: "Low",
+    assignedTo: "Lovish",
+    createdBy: user,
+    comments: [],
+  };
+  
   const priorityType = ["Low", "Intermediate", "High"];
   const statusType = ["Open", "In-progress", "Resolved"];
   const assignedTo = ["Shakti", "Lovish", "Saurabh", "Sarthak"];
   const [error, setError] = useState("");
-  const [queryData, setQueryData] = useState({
-    title: "",
-    description: "",
-    status: "",
-    priority: "",
-    assignedTo: "",
-    createdBy: user,
-    comments: [],
-  });
+  const [queryData, setQueryData] = useState(action === "create" ? createQueryData : updateQueryData);
 
   const onQuerySubmit = () => {
     setError("");
@@ -67,6 +70,7 @@ function QueryModal({ action }) {
               type="text"
               id="title"
               name="title"
+              value={queryData.title}
               onChange={(e) => onInputChange(e)}
               className="text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white  dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-50 border-2 border-gray-300 border-dashed rounded-md"
               placeholder="Enter Query Title"
@@ -82,6 +86,7 @@ function QueryModal({ action }) {
               id="textarea"
               type="textarea"
               name="description"
+              value={queryData.description}
               onChange={(e) => onInputChange(e)}
               className="text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white  dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-50 border-2 border-gray-300 border-dashed rounded-md"
             ></textarea>
@@ -95,6 +100,7 @@ function QueryModal({ action }) {
             <select
               id="priority"
               name="priority"
+              value={queryData.priority}
               onChange={(e) => onInputChange(e)}
               class="block w-full px-4 py-2 mt-2 text-black-700 bg-white border border-gray-300 rounded-md dark:bg-white-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
               {priorityType.map((priority) => (
@@ -110,6 +116,7 @@ function QueryModal({ action }) {
             <select
               id="status"
               name="status"
+              value={queryData.status}
               onChange={(e) => onInputChange(e)}
               class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-white-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
               {statusType.map((status) => (
@@ -125,6 +132,7 @@ function QueryModal({ action }) {
             <select
               id="assignTo"
               name="assignedTo"
+              value={queryData.assignedTo}
               onChange={(e) => onInputChange(e)}
               class="block w-full px-4 py-2 mt-2 text-black-700 bg-white border border-gray-300 rounded-md dark:bg-white-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
               {assignedTo.map((assign) => (

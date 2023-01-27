@@ -27,7 +27,7 @@ export const createTicket = (ticket) => {
 
 export const updateTicket = (ticket) => {
     return fetch(`${API}/update-ticket`, {
-        method: "PUT",
+        method: "POST",
         headers: {
             Accept: "application/json",
             "Content-Type": "text/plain"
