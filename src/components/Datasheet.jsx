@@ -185,9 +185,7 @@ const Datasheet = () => {
                   -
                   <span class="font-medium">
                     {" "}
-                    {pageCount * pageLimit
-                      ? pageCount * pageLimit
-                      : filteredTickets.tickets.length}{" "}
+                    {Math.min(pageCount * pageLimit,filteredTickets.tickets.length)}{" "}
                   </span>
                   of
                   <span class="font-medium">
