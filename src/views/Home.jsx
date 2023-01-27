@@ -74,7 +74,7 @@ const Home = () => {
           </div>
         </div>
       </nav>
-      <Datasheet type="all" />
+      <Datasheet type={type} />
     </div>
   );
 };

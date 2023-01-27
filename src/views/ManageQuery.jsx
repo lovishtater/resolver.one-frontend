@@ -56,9 +56,8 @@ function QueryModal({ action }) {
     setQueryData({ ...queryData, [e.target.name]: e.target.value });
   };
 
-  const onAssignedToChange = (user) => {
-    console.log(user);
-    setQueryData({ ...queryData, assignedTo: user });
+  const onAssignedToChange = (id) => {
+    setQueryData({ ...queryData, assignedTo: assignedTo.find((user) => user._id == id) });
   };
 
   useEffect(() => {
@@ -150,10 +149,11 @@ function QueryModal({ action }) {
             <select
               id="assignTo"
               name="assignedTo"
+              onChange={(e) => onAssignedToChange(e.target.value)}
               class="block w-full px-4 py-2 mt-2 text-black-700 bg-white border border-gray-300 rounded-md dark:bg-white-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
               {assignedTo.map((assign) => (
                 <option
-                  onClick={(e) => onAssignedToChange(assign)}
+                  value={assign._id}
                 >{assign.name} {` - (`} {assign.team} {`)`} </option>
               ))}
             </select>
