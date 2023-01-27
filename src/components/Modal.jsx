@@ -67,13 +67,34 @@ function Modal({ mockTicket, setOpenModal }) {
             <span className="font-normal">{data.createdBy.name}</span>
           </p>
           <p className="text-base">
-            Description : <br />
+            <span className="font-bold">Description : </span> <br />
             {data.description}
           </p>
-          <div class="flex justify-center">
-            <div class="mb-3 xl:w-96">
+          <p className="text-base font-bold">Comments : </p>
+          <p className="text-base h-22 overflow-y-auto mt-0">
+            {data.comments.map((comment) => (
+              <div>
+                {/* <p>{comment}</p> */}
+                <div class="flex space-x-2 ml-10 mt-2">
+                  <div class="block">
+                    <div class="bg-gray-100 w-100 rounded-xl px-2 pb-2 mb-1">
+                      <div class="font-medium">
+                        <small>{comment.slice(0, comment.search(" "))}</small>
+                      </div>
+                      <div class="text-xs">
+                        {comment.slice(comment.search(":") + 1)}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </p>
+          <div class="flex ml-10">
+            <div class="mb-3 w-96 text-base">
               <textarea
-                class=" form-control block w-full mt-3 px-5 py-5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                class=" form-control block w-full mt-3 px-5 py-2 text-base font-normal text-gray-700 bg-gray-100 bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                id="commentInput"
                 rows="3"
                 placeholder="Your Comment"
                 value={comment}
