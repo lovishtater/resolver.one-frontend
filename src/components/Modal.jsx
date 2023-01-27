@@ -81,7 +81,7 @@ function Modal({ ticket, setOpenModal, setAllTickets }) {
             {data.description}
           </p>
           <p className="text-base font-bold">Comments : </p>
-          <p className="text-base h-22 overflow-y-auto mt-0">
+          <p className="text-base h-20 overflow-y-auto mt-0">
             {data.comments.map((comment) => (
               <div>
                 {/* <p>{comment}</p> */}
@@ -90,7 +90,7 @@ function Modal({ ticket, setOpenModal, setAllTickets }) {
                     <div class="bg-gray-100 w-100 rounded-xl px-2 pb-2 mb-1">
                       <div class="font-medium">
                         <small>{comment.name} </small>
-                        <span className="text-xs font-normal italic text-red-700">{moment(comment.createdAt).format("DD/MM/YYYY - HH:MM")}</span>
+                        <span className="text-xs font-normal italic text-red-700">{moment(comment.createdAt).format("DD/MM/YYYY - HH:mm")}</span>
                       </div>
                       <div class="text-xs">{comment.comment}</div>
                     </div>
@@ -102,9 +102,9 @@ function Modal({ ticket, setOpenModal, setAllTickets }) {
           <div class="flex ml-10">
             <div class="mb-3 w-96 text-base">
               <textarea
-                class=" form-control block w-full mt-3 px-5 py-2 text-base font-normal text-gray-700 bg-gray-100 bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                class=" form-control block w-full mt-3 px-3 py-2 text-base font-normal text-gray-700 bg-gray-100 bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 id="commentInput"
-                rows="3"
+                rows="2"
                 placeholder="Your Comment"
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
