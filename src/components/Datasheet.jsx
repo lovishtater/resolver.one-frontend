@@ -46,7 +46,8 @@ const col = [
   },
 ];
 
-const Datasheet = () => {
+const Datasheet = ({type}) => {
+  const user = JSON.parse(localStorage.getItem("resolverUser")).user;
   const [modalOpen, setModalOpen] = useState(false);
   const [pageCount, setPageCount] = useState(1);
   const [pageLimit, setPageLimit] = useState(5);
@@ -94,6 +95,14 @@ const Datasheet = () => {
   useEffect(() => {
     getAllTickets();
   }, []);
+
+  useEffect(() => {
+    if (type === "all"){
+      setFilteredTickets((prev) => ({ ...prev, tickets: Alltickets }));
+    } else {
+      setFilteredTickets((prev) => ({ ...prev, tickets: Alltickets.filter(ticket => ticket.assignedTo._id === user._id) }));
+    }
+  }, [type]);
 
   return (
     <div>

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { getAllUsers } from "../helper/authApis";
 import { createTicket, updateTicket } from "../helper/ticketApis";
 
 function QueryModal({ action }) {
@@ -18,7 +20,8 @@ function QueryModal({ action }) {
   
   const priorityType = ["Low", "Intermediate", "High"];
   const statusType = ["Open", "In-progress", "Resolved"];
-  const assignedTo = ["Shakti", "Lovish", "Saurabh", "Sarthak"];
+
+  const [assignedTo, setAssignedTo] = useState([]);
   const [error, setError] = useState("");
   const [queryData, setQueryData] = useState(action === "create" ? createQueryData : updateQueryData);
 
@@ -50,8 +53,26 @@ function QueryModal({ action }) {
   };
 
   const onInputChange = (e) => {
+    console.log(e.target.name, e.target);
     setQueryData({ ...queryData, [e.target.name]: e.target.value });
   };
+
+  const onAssignedToChange = (e) => {
+    const id = e.target.value;
+    console.log(id);
+    const user = assignedTo.find((user) => user._id === id);
+    setQueryData({ ...queryData, assignedTo: user });
+  };
+
+  useEffect(() => {
+    getAllUsers().then((data) => {
+      if (data.error) {
+        setError(data.error);
+      } else {
+        setAssignedTo(data.users);
+      }
+    });
+  }, []);
 
 
 
@@ -59,7 +80,7 @@ function QueryModal({ action }) {
     <div>
       <section class="max-w-4xl p-6 mx-auto shadow-md dark:bg-white-800 mt-20 border-2 border-blue-500 border-dashed rounded-md">
         <h1 class="text-xl font-bold text-white capitalize dark:text-pink-500">
-          Register Query
+          {action === "create" ? "Create Query" : "Update Query"}
         </h1>
         <div>
           <div className="mt-4">
@@ -133,10 +154,12 @@ function QueryModal({ action }) {
               id="assignTo"
               name="assignedTo"
               value={queryData.assignedTo}
-              onChange={(e) => onInputChange(e)}
+              onChange={(e) => onAssignedToChange(e)}
               class="block w-full px-4 py-2 mt-2 text-black-700 bg-white border border-gray-300 rounded-md dark:bg-white-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
               {assignedTo.map((assign) => (
-                <option>{assign}</option>
+                <option
+                  value={assign._id}
+                >{assign.name} {` - (`} {assign.team} {`)`} </option>
               ))}
             </select>
           </div>
@@ -163,7 +186,7 @@ function QueryModal({ action }) {
           <button
             onClick={(e) => onQuerySubmit(e)}
             class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
-            Submit
+            {action === "create" ? "Add Query" : "Update Query"}
           </button>
         </div>
       </section>

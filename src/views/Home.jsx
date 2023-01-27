@@ -7,6 +7,7 @@ import { signout } from "../helper/authApis";
 const Home = () => {
   // const column = [];
   const navigate = useNavigate();
+  const [type, setType] = useState("all"); // all, my
 
   return (
     <div>
@@ -25,13 +26,13 @@ const Home = () => {
 
               <div class="hidden md:flex items-center space-x-1">
                 <a
-                  href=""
+                  onClick={() => setType("all")}
                   class="py-4 px-2 text-green-500 border-b-4 border-green-500 font-semibold "
                 >
                   All Tasks
                 </a>
                 <a
-                  href=""
+                  onClick={() => setType("my")}
                   class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300"
                 >
                   My Tasks
@@ -73,7 +74,7 @@ const Home = () => {
           </div>
         </div>
       </nav>
-      <Datasheet />
+      <Datasheet type="all" />
     </div>
   );
 };
