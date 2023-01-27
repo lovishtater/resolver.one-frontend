@@ -76,11 +76,15 @@ function Modal({ ticket, setOpenModal, setAllTickets }) {
             Created By :{" "}
             <span className="font-normal">{data.createdBy.name}</span>
           </p>
+          <p className="text-base font-bold">
+            Assigned To :{" "}
+            <span className="font-normal">{data.assignedTo.name}</span>
+          </p>
           <p className="text-base">
             <span className="font-bold">Description : </span> <br />
             {data.description}
           </p>
-          <p className="text-base font-bold">Comments : </p>
+          <p className="mt-4 text-base font-bold">Comments : </p>
           <p className="text-base max-h-40 overflow-y-scroll mt-0">
             {data.comments.map((comment) => (
               <div>
