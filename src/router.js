@@ -3,30 +3,53 @@ import Home from "./views/Home";
 import ErrorPage from "./views/NotFound";
 import Signin from "./views/Signin";
 import Signup from "./views/Signup";
-import Datasheet from "./components/Datasheet";
 import ManageQuery from "./views/ManageQuery";
+
+const allRoutes = [
+  {
+    path: "/",
+    element: <Home />,
+    private: true,
+  },
+  {
+    path: "/signin",
+    element: <Signin />,
+    private: false,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
+    private: false,
+  },
+  {
+    path: "/createQuery",
+    element: <ManageQuery action="create" />,
+    private: true,
+  },
+  {
+    path: "/updateQuery",
+    element: <ManageQuery action="edit" />,
+    private: true,
+  },
+  {
+    path: "*",
+    element: <ErrorPage />,
+    private: false,
+  },
+]
 
 const Router = () => {
   const isAuthenticated = localStorage.getItem("resolverUser");
-
   return (
     <>
       <BrowserRouter baseUrl="/">
         <Routes>
-          {!isAuthenticated ? (
-            <>
-              <Route path="/*" element={<Signin />} />
-              <Route path="/signin" element={<Signin />} />
-              <Route path="/signup" element={<Signup />} />
-            </>
-          ) : (
-            <>
-              <Route path="/" element={<Home />} />
-              <Route path="/createQuery" exact element={<ManageQuery action="create" />} />
-              <Route path="/updateQuery"  element={<ManageQuery action="edit" />} />
-              <Route path="*" element={<ErrorPage />} />
-            </>
-          )}
+          {allRoutes.map((route, index) => {
+            if (route.private && !isAuthenticated) {
+              return <Route key={index} path={route.path} element={<Signin />} />;
+            }
+            return <Route key={index} path={route.path} element={route.element} />;
+          })}
         </Routes>
       </BrowserRouter>
     </>
