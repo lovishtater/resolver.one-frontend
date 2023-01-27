@@ -2,15 +2,34 @@ import { React, useState } from "react";
 import "./Modal.css";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import { addComment } from "../helper/ticketApis";
+
 
 function Modal({ mockTicket, setOpenModal }) {
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("resolverUser")).user;
   const [data, setData] = useState(mockTicket);
-
+  const [comment, setComment] = useState("");
   const setPriorityColor = {
     High: "text-red-700",
     Intermediate: "text-yellow-700",
     Low: "text-green-700",
+  };
+
+  const onAddComment = () => {
+    const newComment = {
+      comment: comment,
+      _id: user._id,
+      name: user.name,
+    };
+    addComment(newComment).then((data) => {
+      if (data.error) {
+        console.log(data.error);
+      } else {
+        setData(data);
+        setComment("");
+      }
+    });
   };
 
   return (
@@ -55,9 +74,10 @@ function Modal({ mockTicket, setOpenModal }) {
             <div class="mb-3 xl:w-96">
               <textarea
                 class=" form-control block w-full mt-3 px-5 py-5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                id="exampleFormControlTextarea1"
                 rows="3"
-                placeholder="Your message"
+                placeholder="Your Comment"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
               ></textarea>
             </div>
           </div>
@@ -79,7 +99,9 @@ function Modal({ mockTicket, setOpenModal }) {
           >
             Update
           </button>
-          <button>Comment</button>
+          <button
+          onClick={() => onAddComment()}
+          >Comment</button>
         </div>
       </div>
     </div>

@@ -13,7 +13,7 @@ function QueryModal({ action }) {
     description: "",
     status: "Open",
     priority: "Low",
-    assignedTo: "Lovish",
+    assignedTo: user,
     createdBy: user,
     comments: [],
   };
@@ -53,14 +53,11 @@ function QueryModal({ action }) {
   };
 
   const onInputChange = (e) => {
-    console.log(e.target.name, e.target);
     setQueryData({ ...queryData, [e.target.name]: e.target.value });
   };
 
-  const onAssignedToChange = (e) => {
-    const id = e.target.value;
-    console.log(id);
-    const user = assignedTo.find((user) => user._id === id);
+  const onAssignedToChange = (user) => {
+    console.log(user);
     setQueryData({ ...queryData, assignedTo: user });
   };
 
@@ -153,12 +150,10 @@ function QueryModal({ action }) {
             <select
               id="assignTo"
               name="assignedTo"
-              value={queryData.assignedTo}
-              onChange={(e) => onAssignedToChange(e)}
               class="block w-full px-4 py-2 mt-2 text-black-700 bg-white border border-gray-300 rounded-md dark:bg-white-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
               {assignedTo.map((assign) => (
                 <option
-                  value={assign._id}
+                  onClick={(e) => onAssignedToChange(assign)}
                 >{assign.name} {` - (`} {assign.team} {`)`} </option>
               ))}
             </select>
