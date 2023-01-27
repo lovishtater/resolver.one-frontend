@@ -4,7 +4,6 @@ import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { addComment } from "../helper/ticketApis";
 
-
 function Modal({ mockTicket, setOpenModal }) {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("resolverUser")).user;
@@ -19,14 +18,14 @@ function Modal({ mockTicket, setOpenModal }) {
   const onAddComment = () => {
     const newComment = {
       comment: comment,
-      _id: user._id,
+      _id: data._id,
       name: user.name,
     };
     addComment(newComment).then((data) => {
       if (data.error) {
         console.log(data.error);
       } else {
-        setData(data);
+        // setData(data);
         setComment("");
       }
     });
@@ -79,11 +78,9 @@ function Modal({ mockTicket, setOpenModal }) {
                   <div class="block">
                     <div class="bg-gray-100 w-100 rounded-xl px-2 pb-2 mb-1">
                       <div class="font-medium">
-                        <small>{comment.slice(0, comment.search(" "))}</small>
+                        <small>{comment.name}</small>
                       </div>
-                      <div class="text-xs">
-                        {comment.slice(comment.search(":") + 1)}
-                      </div>
+                      <div class="text-xs">{comment.comment}</div>
                     </div>
                   </div>
                 </div>
@@ -120,9 +117,7 @@ function Modal({ mockTicket, setOpenModal }) {
           >
             Update
           </button>
-          <button
-          onClick={() => onAddComment()}
-          >Comment</button>
+          <button onClick={() => onAddComment()}>Comment</button>
         </div>
       </div>
     </div>
