@@ -174,7 +174,7 @@ const Datasheet = ({type}) => {
                           </span>
                         </td>
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-blue-900 text-sm leading-5">
-                          {row.assignedTo}
+                          {row.assignedTo.name}
                         </td>
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-blue-900 text-sm leading-5">
                           {moment(row.createdAt).format("DD-MM-YYYY, h:mm a")}
