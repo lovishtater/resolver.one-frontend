@@ -15,6 +15,10 @@ function Modal({ mockTicket, setOpenModal }) {
     Low: "text-green-700",
   };
 
+  function refreshPage() {
+    window.location.reload(false);
+  }
+
   const onAddComment = () => {
     const newComment = {
       comment: comment,
@@ -29,6 +33,7 @@ function Modal({ mockTicket, setOpenModal }) {
         setComment("");
       }
     });
+    refreshPage();
   };
 
   return (
