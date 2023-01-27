@@ -14,7 +14,7 @@ function Modal({ ticket, setOpenModal, setAllTickets }) {
   const user = JSON.parse(localStorage.getItem("resolverUser")).user;
   const [comment, setComment] = useState("");
   const [data, setData] = useState(ticket);
-  
+
   const onAddComment = () => {
     if (comment === "") {
       return;
@@ -23,15 +23,17 @@ function Modal({ ticket, setOpenModal, setAllTickets }) {
       comment: comment,
       _id: data._id,
       name: user.name,
-      createdAt: Date.now()
+      createdAt: Date.now(),
     };
     addComment(newComment).then((data) => {
       if (data.error) {
         console.log(data.error);
       } else {
         setData(data.ticket);
-        setAllTickets(prev => {
-          const index = prev.findIndex(ticket => ticket._id === data.ticket._id);
+        setAllTickets((prev) => {
+          const index = prev.findIndex(
+            (ticket) => ticket._id === data.ticket._id
+          );
           prev[index] = data.ticket;
           return [...prev];
         });
@@ -87,7 +89,8 @@ function Modal({ ticket, setOpenModal, setAllTickets }) {
                   <div class="block">
                     <div class="bg-gray-100 w-100 rounded-xl px-2 pb-2 mb-1">
                       <div class="font-medium">
-                        <small>{comment.name}</small>
+                        <small>{comment.name} </small>
+                        <span className="text-xs font-normal italic text-red-700">{moment(comment.createdAt).format("DD/MM/YYYY - HH:MM")}</span>
                       </div>
                       <div class="text-xs">{comment.comment}</div>
                     </div>
