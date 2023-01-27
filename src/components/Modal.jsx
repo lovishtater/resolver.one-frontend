@@ -7,22 +7,41 @@ function Modal({ mockTicket, setOpenModal }) {
   const navigate = useNavigate();
   const [data, setData] = useState(mockTicket);
 
+  const setPriorityColor = {
+    High: "text-red-700",
+    Intermediate: "text-yellow-700",
+    Low: "text-green-700",
+  };
+
   return (
     <div className="modalBackground">
       <div className="modalContainer h-none">
         <div className="title mb-3">
-          <h1 className="text-xl font-bold text-blue-700 rounded
-          ">{data.title}</h1>
+          <h1
+            className="text-xl font-bold text-blue-700 rounded
+          "
+          >
+            {data.title}
+          </h1>
         </div>
         <div className="body text-left">
           <p className="text-base font-bold">
-            Date :{" "}
+            Created at :{" "}
             <span className="font-normal">
               {moment(data.createdAt).format("DD-MM-YYYY, h:mm a")}
             </span>
           </p>
           <p className="text-base font-bold">
-            Priority : <span className="font-normal">{data.priority}</span>
+            Last modified at :{" "}
+            <span className="font-normal">
+              {moment(data.updatedAt).format("DD-MM-YYYY, h:mm a")}
+            </span>
+          </p>
+          <p className="text-base font-bold">
+            Priority :{" "}
+            <span className={`font-bold ${setPriorityColor[data.priority]}`}>
+              {data.priority}
+            </span>
           </p>
           <p className="text-base font-bold">
             Created By :{" "}
@@ -30,7 +49,8 @@ function Modal({ mockTicket, setOpenModal }) {
           </p>
           <p className="text-base">
             Description : <br />
-            {data.description}</p>
+            {data.description}
+          </p>
           <div class="flex justify-center">
             <div class="mb-3 xl:w-96">
               <textarea
@@ -51,13 +71,15 @@ function Modal({ mockTicket, setOpenModal }) {
           >
             Close
           </button>
-          <button 
-          onClick={() => {navigate("/updateQuery", {state: data})}}
-          id="updateBtn">
+          <button
+            onClick={() => {
+              navigate("/updateQuery", { state: data });
+            }}
+            id="updateBtn"
+          >
             Update
           </button>
           <button>Comment</button>
-          <button id="resolveBtn">Resolve</button>
         </div>
       </div>
     </div>
