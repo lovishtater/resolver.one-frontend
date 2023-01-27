@@ -5,7 +5,7 @@ import {getAllTicket} from "../helper/ticketApis";
 
 const getPriorityColor = {
 High:"bg-red-200",
-Medium:"bg-yellow-200",
+Intermediate:"bg-yellow-200",
 Low:"bg-green-200"
 }
 

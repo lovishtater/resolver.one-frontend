@@ -4,7 +4,7 @@ import { createTicket } from "../helper/ticketApis";
 
 function QueryModal() {
   const  user  = JSON.parse(localStorage.getItem("user")).user;
-  const priorityType = ["Low", "Medium", "High"];
+  const priorityType = ["Low", "Intermediate", "High"];
   const statusType = ["Open", "In-progress", "Resolved"];
   const assignedTo = ["Shakti", "Lovish", "Saurabh", "Sarthak"];
   const [queryData, setQueryData] = useState({
