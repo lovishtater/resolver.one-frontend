@@ -89,24 +89,24 @@ function Modal({ ticket, setOpenModal, setAllTickets }) {
             {data.comments.map((comment) => (
               <div>
                 {/* <p>{comment}</p> */}
-                <div class="flex space-x-2 ml-10 mt-2">
-                  <div class="block">
-                    <div class="bg-gray-100 w-100 rounded-xl px-2 pb-2 mb-1">
-                      <div class="font-medium">
+                <div className="flex space-x-2 ml-10 mt-2">
+                  <div className="block">
+                    <div className="bg-gray-100 w-100 rounded-xl px-2 pb-2 mb-1">
+                      <div className="font-medium">
                         <small>{comment.name} </small>
                         <span className="text-xs font-normal italic text-red-700">{moment(comment.createdAt).format("DD/MM/YYYY - HH:mm")}</span>
                       </div>
-                      <div class="text-xs">{comment.comment}</div>
+                      <div className="text-xs">{comment.comment}</div>
                     </div>
                   </div>
                 </div>
               </div>
             ))}
           </p>
-          <div class="flex ml-10">
-            <div class="mb-3 w-96 text-base">
+          <div className="flex ml-10">
+            <div className="mb-3 w-96 text-base">
               <textarea
-                class=" form-control block w-full mt-3 px-3 py-2 text-base font-normal text-gray-700 bg-gray-100 bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                className=" form-control block w-full mt-3 px-3 py-2 text-base font-normal text-gray-700 bg-gray-100 bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 id="commentInput"
                 rows="2"
                 placeholder="Your Comment"

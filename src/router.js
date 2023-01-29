@@ -39,20 +39,30 @@ const allRoutes = [
 ]
 
 const Router = () => {
-  const isAuthenticated = localStorage.getItem("resolverUser");
+  const user = localStorage.getItem("resolverUser");
   return (
-    <>
-      <BrowserRouter baseUrl="/">
-        <Routes>
-          {allRoutes.map((route, index) => {
-            if (route.private && !isAuthenticated) {
-              return <Route key={index} path={route.path} element={<Signin />} />;
-            }
-            return <Route key={index} path={route.path} element={route.element} />;
-          })}
-        </Routes>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <Routes>
+        {allRoutes.map((route) => {
+          if (route.private && !user) {
+            return (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={<Signin />}
+              />
+            );
+          }
+          return (
+            <Route
+              key={route.path}
+              path={route.path}
+              element={route.element}
+            />
+          );
+        })}
+      </Routes>
+    </BrowserRouter>
   );
 };
 
