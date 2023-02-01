@@ -120,8 +120,8 @@ const Datasheet = ({ type }) => {
         )}
         <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 pr-10 lg:px-8">
           {error && <div className="text-red-500">{error}</div>}
-          {!loading || filteredTickets.tickets.length === 0 ? (
-            <div classNamw="text-center">
+          {loading || filteredTickets.tickets.length === 0 ? (
+            <div className="text-center">
               <h1 className="text-2xl">Loading...</h1>
             </div>
           ) : (

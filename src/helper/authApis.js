@@ -12,6 +12,12 @@ export const signup = (user) => {
     .then(response => {
         return response.json();
     })
+    .then(data => {
+        if (data.error) {
+            throw new Error(data.error);
+        }
+        return data;
+    })
     .catch(err => console.log(err));
 }
 
@@ -26,6 +32,12 @@ export const signin = (user) => {
     })
     .then(response => {
         return response.json();
+    })
+    .then(data => {
+        if (data.error) {
+            throw new Error(data.error);
+        }
+        return data;
     })
     .catch(err => console.log(err));
 }

@@ -1,6 +1,6 @@
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
-import { signup } from "../helper/authApis";
+import { signup, signin } from "../helper/authApis";
 import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
@@ -21,14 +21,15 @@ export default function Signup() {
   };
 
   const onSubmit = () => {
-    setLoading(true);
+    setLoading("Creating your account...");
     signup(values)
-      .then((data) => {
-        if (data.error) {
-          setError(data.error);
-        } else {
-          navigate("/signin");
-        }
+      .then(() => {
+        setLoading("Logging you in...");
+        return signin(values)
+      })
+      .then((user) => {
+        localStorage.setItem("resolverUser", JSON.stringify(user));
+        navigate("/");
       })
       .catch((err) => {
         setError(err);
@@ -132,13 +133,14 @@ export default function Signup() {
               </div>
             )}
 
+
             {loading && (
               <div
                 className="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative"
                 role="alert"
               >
                 <strong className="font-bold">Loading!</strong>
-                <span className="block sm:inline">Please wait...</span>
+                <span className="block sm:inline">{loading}</span>
               </div>
             )}
 

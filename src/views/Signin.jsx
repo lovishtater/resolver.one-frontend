@@ -105,7 +105,7 @@ export default function Signin() {
               <a
                 href="/signup"
                 className="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out"
-                onclick={() => navigate("/signup")}
+                onClick={() => navigate("/signup")}
               >
                 {" "}
                 Register

@@ -39,26 +39,16 @@ const allRoutes = [
 ]
 
 const Router = () => {
-  const user = localStorage.getItem("resolverUser");
   return (
     <BrowserRouter>
       <Routes>
         {allRoutes.map((route) => {
-          if (route.private && !user) {
+          if (route.private && !localStorage.getItem("resolverUser")) {
             return (
-              <Route
-                key={route.path}
-                path={route.path}
-                element={<Signin />}
-              />
+              <Route key={route.path} path={route.path} exact element={<Signin />} />
             );
           }
-          return (
-            <Route
-              key={route.path}
-              path={route.path}
-              element={route.element}
-            />
+          return ( <Route key={route.path} path={route.path} exact element={route.element} />
           );
         })}
       </Routes>
