@@ -4,6 +4,8 @@ import ErrorPage from "./views/NotFound";
 import Signin from "./views/Signin";
 import Signup from "./views/Signup";
 import ManageQuery from "./views/ManageQuery";
+import Orders from "./views/Order";
+import OldOrder from "./views/OldOrders";
 
 const allRoutes = [
   {
@@ -30,6 +32,15 @@ const allRoutes = [
     path: "/updateQuery",
     element: <ManageQuery action="edit" />,
     private: true,
+  },
+  {
+    path: "/orders",
+    element: <Orders />,
+    private: true,
+  },
+  {
+    path: "/oldOrders",
+    element: <OldOrder />,
   },
   {
     path: "*",
